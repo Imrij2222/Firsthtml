@@ -3,85 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Site GitHub Pages</title>
+    <title>Emploi du Temps</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Styles par défaut (mode clair) */
+        /* Étape 2 : Styles CSS */
         body {
-            background-color: #ffffff;
-            color: #000000;
-            transition: background-color 0.3s, color 0.3s;
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
             padding: 20px;
         }
-
-        /* Styles pour le mode sombre */
-        body.dark-mode {
-            background-color: #121212;
-            color: #ffffff;
+        h1 {
+            text-align: center;
         }
-
-        /* Style du bouton de bascule */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #dddddd;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .dark-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+        .dark-mode th {
+            background-color: #555;
+        }
+        .dark-mode tr:nth-child(even) {
+            background-color: #444;
+        }
+        .toggle-button {
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
             border: none;
-            padding: 10px 15px;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        /* Changement de couleur du bouton en mode sombre */
-        body.dark-mode .theme-toggle {
-            background-color: #333333;
-            color: #ffffff;
         }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle">Passer en mode sombre</button>
 
-    <h1>Bienvenue sur mon site GitHub Pages</h1>
-    <p>Ceci est un exemple de site avec un bouton de bascule entre le mode clair et le mode sombre.</p>
+    <h1>Emploi du Temps</h1>
+    <button class="toggle-button" onclick="toggleDarkMode()">Activer/Désactiver le Mode Sombre</button>
+    
+    <table id="schedule">
+        <thead>
+            <tr>
+                <th>Jour</th>
+                <th>8h15 - 9h45</th>
+                <th>10h00 - 11h30</th>
+                <th>12h45 - 14h15</th>
+                <th>14h30 - 16h00</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Dimanche</td>
+                <td>Technologie des composants</td>
+                <td>Microprocesseur</td>
+                <td>Td réseau</td>
+                <td>Td microprocesseur</td>
+            </tr>
+            <tr>
+                <td>Lundi</td>
+                <td>Tp fonction</td>
+                <td>Tp avant projet</td>
+                <td>Fonction</td>
+                <td>Avant projet</td>
+            </tr>
+            <tr>
+                <td>Mardi</td>
+                <td>Microprocesseur</td>
+                <td>Réseau</td>
+                <td>Physique des sc.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Mercredi</td>
+                <td>Td fonction</td>
+                <td>Td signal</td>
+                <td>Traitement de signal</td>
+                <td>Antenne et propagation d'onde</td>
+            </tr>
+            <tr>
+                <td>Jeudi</td>
+                <td>Tp microprocesseur</td>
+                <td>Tp réseau/TS</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 
     <script>
-        // Récupère les éléments
-        const toggleButton = document.getElementById('theme-toggle');
-        const body = document.body;
-
-        // Fonction pour mettre à jour le texte du bouton
-        function updateButtonText() {
-            if (body.classList.contains('dark-mode')) {
-                toggleButton.textContent = 'Passer en mode clair';
-            } else {
-                toggleButton.textContent = 'Passer en mode sombre';
-            }
-        }
-
-        // Vérifie la préférence de thème enregistrée dans le localStorage
-        if (localStorage.getItem('theme') === 'dark') {
-            body.classList.add('dark-mode');
-        }
-
-        // Met à jour le texte du bouton au chargement
-        updateButtonText();
-
-        // Ajoute un écouteur d'événement au bouton
-        toggleButton.addEventListener('click', () => {
+        // Étape 3 : Fonctionnalité de mode sombre
+        function toggleDarkMode() {
+            const body = document.body;
+            const table = document.getElementById('schedule');
             body.classList.toggle('dark-mode');
-
-            // Enregistre la préférence de l'utilisateur
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-
-            // Met à jour le texte du bouton
-            updateButtonText();
-        });
+            table.classList.toggle('dark-mode');
+        }
     </script>
 </body>
 </html>
