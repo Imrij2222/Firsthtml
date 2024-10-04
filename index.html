@@ -6,7 +6,7 @@
     <title>Emploi du Temps</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Étape 2 : Styles CSS */
+        /* Styles CSS */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -57,6 +57,40 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        /* Couleurs des modules */
+        .module-technologie {
+            background-color: #e0f7fa; /* Couleur claire pour Technologie des composants */
+        }
+        .module-microprocesseur {
+            background-color: #ffe0b2; /* Couleur claire pour Microprocesseur */
+        }
+        .module-td-reseau {
+            background-color: #ffccbc; /* Couleur claire pour TD Réseau */
+        }
+        .module-td-microprocesseur {
+            background-color: #ffab91; /* Couleur plus foncée pour TD Microprocesseur */
+        }
+        .module-tp-fonction {
+            background-color: #c8e6c9; /* Couleur claire pour TP Fonction */
+        }
+        .module-tp-avant-projet {
+            background-color: #d1c4e9; /* Couleur claire pour TP Avant Projet */
+        }
+        .module-physique {
+            background-color: #ffe0b2; /* Couleur claire pour Physique des sc. */
+        }
+        .module-td-signal {
+            background-color: #ffccbc; /* Couleur claire pour TD Signal */
+        }
+        .module-traitement-signal {
+            background-color: #ffab91; /* Couleur plus foncée pour Traitement de Signal */
+        }
+        .module-antenne {
+            background-color: #c5cae9; /* Couleur claire pour Antenne et Propagation d'Onde */
+        }
+        .module-tp-reseau {
+            background-color: #b2ebf2; /* Couleur claire pour TP Réseau */
+        }
     </style>
 </head>
 <body>
@@ -77,36 +111,36 @@
         <tbody>
             <tr>
                 <td>Dimanche</td>
-                <td>Technologie des composants</td>
-                <td>Microprocesseur</td>
-                <td>Td réseau</td>
-                <td>Td microprocesseur</td>
+                <td class="module-technologie">Technologie des composants</td>
+                <td class="module-microprocesseur">Microprocesseur</td>
+                <td class="module-td-reseau">Td réseau</td>
+                <td class="module-td-microprocesseur">Td microprocesseur</td>
             </tr>
             <tr>
                 <td>Lundi</td>
-                <td>Tp fonction</td>
-                <td>Tp avant projet</td>
-                <td>Fonction</td>
-                <td>Avant projet</td>
+                <td class="module-tp-fonction">Tp fonction</td>
+                <td class="module-tp-avant-projet">Tp avant projet</td>
+                <td class="module-tp-fonction">Fonction</td>
+                <td class="module-tp-avant-projet">Avant projet</td>
             </tr>
             <tr>
                 <td>Mardi</td>
-                <td>Microprocesseur</td>
-                <td>Réseau</td>
-                <td>Physique des sc.</td>
+                <td class="module-microprocesseur">Microprocesseur</td>
+                <td class="module-physique">Réseau</td>
+                <td class="module-physique">Physique des sc.</td>
                 <td></td>
             </tr>
             <tr>
                 <td>Mercredi</td>
-                <td>Td fonction</td>
-                <td>Td signal</td>
-                <td>Traitement de signal</td>
-                <td>Antenne et propagation d'onde</td>
+                <td class="module-td-fonction">Td fonction</td>
+                <td class="module-td-signal">Td signal</td>
+                <td class="module-traitement-signal">Traitement de signal</td>
+                <td class="module-antenne">Antenne et propagation d'onde</td>
             </tr>
             <tr>
                 <td>Jeudi</td>
-                <td>Tp microprocesseur</td>
-                <td>Tp réseau/TS</td>
+                <td class="module-microprocesseur">Tp microprocesseur</td>
+                <td class="module-tp-reseau">Tp réseau/TS</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -114,7 +148,7 @@
     </table>
 
     <script>
-        // Étape 3 : Fonctionnalité de mode sombre
+        // Fonctionnalité de mode sombre
         function toggleDarkMode() {
             const body = document.body;
             const table = document.getElementById('schedule');
