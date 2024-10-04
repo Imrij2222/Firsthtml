@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emploi du Temps</title>
+    <title>Emploi du Temps Personnalisable</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Styles CSS */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -57,45 +56,15 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        /* Couleurs des modules */
-        .module-technologie {
-            background-color: #e0f7fa; /* Couleur claire pour Technologie des composants */
-        }
-        .module-microprocesseur {
-            background-color: #ffe0b2; /* Couleur claire pour Microprocesseur */
-        }
-        .module-td-reseau {
-            background-color: #ffccbc; /* Couleur claire pour TD Réseau */
-        }
-        .module-td-microprocesseur {
-            background-color: #ffab91; /* Couleur plus foncée pour TD Microprocesseur */
-        }
-        .module-tp-fonction {
-            background-color: #c8e6c9; /* Couleur claire pour TP Fonction */
-        }
-        .module-tp-avant-projet {
-            background-color: #d1c4e9; /* Couleur claire pour TP Avant Projet */
-        }
-        .module-physique {
-            background-color: #ffe0b2; /* Couleur claire pour Physique des sc. */
-        }
-        .module-td-signal {
-            background-color: #ffccbc; /* Couleur claire pour TD Signal */
-        }
-        .module-traitement-signal {
-            background-color: #ffab91; /* Couleur plus foncée pour Traitement de Signal */
-        }
-        .module-antenne {
-            background-color: #c5cae9; /* Couleur claire pour Antenne et Propagation d'Onde */
-        }
-        .module-tp-reseau {
-            background-color: #b2ebf2; /* Couleur claire pour TP Réseau */
+        .note {
+            font-size: 0.9em;
+            color: #555;
         }
     </style>
 </head>
 <body>
 
-    <h1>Emploi du Temps</h1>
+    <h1>Emploi du Temps Personnalisable</h1>
     <button class="toggle-button" onclick="toggleDarkMode()">Activer/Désactiver le Mode Sombre</button>
     
     <table id="schedule">
@@ -111,38 +80,38 @@
         <tbody>
             <tr>
                 <td>Dimanche</td>
-                <td class="module-technologie">Technologie des composants</td>
-                <td class="module-microprocesseur">Microprocesseur</td>
-                <td class="module-td-reseau">Td réseau</td>
-                <td class="module-td-microprocesseur">Td microprocesseur</td>
+                <td onclick="editCell(this)">Technologie des composants <span class="note"></span></td>
+                <td onclick="editCell(this)">Microprocesseur <span class="note"></span></td>
+                <td onclick="editCell(this)">Td réseau <span class="note"></span></td>
+                <td onclick="editCell(this)">Td microprocesseur <span class="note"></span></td>
             </tr>
             <tr>
                 <td>Lundi</td>
-                <td class="module-tp-fonction">Tp fonction</td>
-                <td class="module-tp-avant-projet">Tp avant projet</td>
-                <td class="module-tp-fonction">Fonction</td>
-                <td class="module-tp-avant-projet">Avant projet</td>
+                <td onclick="editCell(this)">Tp fonction <span class="note"></span></td>
+                <td onclick="editCell(this)">Tp avant projet <span class="note"></span></td>
+                <td onclick="editCell(this)">Fonction <span class="note"></span></td>
+                <td onclick="editCell(this)">Avant projet <span class="note"></span></td>
             </tr>
             <tr>
                 <td>Mardi</td>
-                <td class="module-microprocesseur">Microprocesseur</td>
-                <td class="module-physique">Réseau</td>
-                <td class="module-physique">Physique des sc.</td>
-                <td></td>
+                <td onclick="editCell(this)">Microprocesseur <span class="note"></span></td>
+                <td onclick="editCell(this)">Réseau <span class="note"></span></td>
+                <td onclick="editCell(this)">Physique des sc. <span class="note"></span></td>
+                <td onclick="editCell(this)"></td>
             </tr>
             <tr>
                 <td>Mercredi</td>
-                <td class="module-td-fonction">Td fonction</td>
-                <td class="module-td-signal">Td signal</td>
-                <td class="module-traitement-signal">Traitement de signal</td>
-                <td class="module-antenne">Antenne et propagation d'onde</td>
+                <td onclick="editCell(this)">Td fonction <span class="note"></span></td>
+                <td onclick="editCell(this)">Td signal <span class="note"></span></td>
+                <td onclick="editCell(this)">Traitement de signal <span class="note"></span></td>
+                <td onclick="editCell(this)">Antenne et propagation d'onde <span class="note"></span></td>
             </tr>
             <tr>
                 <td>Jeudi</td>
-                <td class="module-microprocesseur">Tp microprocesseur</td>
-                <td class="module-tp-reseau">Tp réseau/TS</td>
-                <td></td>
-                <td></td>
+                <td onclick="editCell(this)">Tp microprocesseur <span class="note"></span></td>
+                <td onclick="editCell(this)">Tp réseau/TS <span class="note"></span></td>
+                <td onclick="editCell(this)"></td>
+                <td onclick="editCell(this)"></td>
             </tr>
         </tbody>
     </table>
@@ -154,6 +123,15 @@
             const table = document.getElementById('schedule');
             body.classList.toggle('dark-mode');
             table.classList.toggle('dark-mode');
+        }
+
+        // Fonction pour éditer une cellule
+        function editCell(cell) {
+            const currentText = cell.innerText.split('\n')[0];
+            const note = prompt("Ajouter une note ou un lien pour " + currentText + ":", cell.querySelector('.note').innerText);
+            if (note !== null) {
+                cell.querySelector('.note').innerText = note;
+            }
         }
     </script>
 </body>
