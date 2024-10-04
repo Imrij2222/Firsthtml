@@ -1,7 +1,3 @@
-Pour obtenir des cellules de tableau qui ressemblent davantage à des carrés, vous pouvez ajuster à la fois la largeur et la hauteur des cellules. Cela peut être fait en définissant une largeur fixe pour les colonnes et en augmentant le `padding` pour les cellules. Voici le code HTML mis à jour pour atteindre cet objectif :
-
-### Code HTML avec Cellules en Forme de Carrés
-
 ```html
 <!DOCTYPE html>
 <html lang="fr">
@@ -65,7 +61,20 @@ Pour obtenir des cellules de tableau qui ressemblent davantage à des carrés, v
         }
         .note {
             font-size: 0.9em;
-            color: #555;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .note-red {
+            color: red;
+        }
+        .note-green {
+            color: green;
+        }
+        .note-blue {
+            color: blue;
+        }
+        .note-yellow {
+            color: orange;
         }
     </style>
 </head>
@@ -136,26 +145,40 @@ Pour obtenir des cellules de tableau qui ressemblent davantage à des carrés, v
         function editCell(cell) {
             const currentText = cell.innerText.split('\n')[0];
             const note = prompt("Ajouter une note ou un lien pour " + currentText + ":", cell.querySelector('.note').innerText);
+            
             if (note !== null) {
-                cell.querySelector('.note').innerText = note;
+                // Demander à l'utilisateur de choisir une couleur pour la note
+                const color = prompt("Choisissez une couleur pour la note (red, green, blue, yellow):", "red");
+                let noteClass = '';
+
+                // Déterminer la classe de couleur à appliquer
+                switch (color.toLowerCase()) {
+                    case 'red':
+                        noteClass = 'note-red';
+                        break;
+                    case 'green':
+                        noteClass = 'note-green';
+                        break;
+                    case 'blue':
+                        noteClass = 'note-blue';
+                        break;
+                    case 'yellow':
+                        noteClass = 'note-yellow';
+                        break;
+                    default:
+                        noteClass = 'note-red'; // Couleur par défaut
+                }
+
+                // Créer un élément span pour la note
+                const noteSpan = document.createElement('span');
+                noteSpan.className = `note ${noteClass}`; // Appliquer la classe de couleur
+                noteSpan.innerText = note;
+
+                // Ajouter la note à la cellule
+                cell.appendChild(noteSpan);
             }
         }
     </script>
 </body>
 </html>
 ```
-
-### Modifications Apportées
-
-1. **Largeur et Hauteur des Cellules** :
-   - J'ai défini une largeur fixe de `20%` pour chaque colonne avec `width: 20%;`.
-   - J'ai également ajouté une hauteur fixe de `100px` pour chaque cellule avec `height: 100px;`. Cela permet d'obtenir une forme plus carrée.
-
-2. **Padding** :
-   - Le `padding` a été maintenu à `40px` pour augmenter la hauteur des cellules tout en gardant une apparence agréable.
-
-### Tester le Tableau
-
-Pour tester le tableau, copiez le code ci-dessus dans un fichier avec l'extension `.html` (par exemple, `emploi_du_temps_groupe_1_carré.html`) et ouvrez-le dans un navigateur web. Vous pourrez voir que chaque cellule a maintenant une forme plus carrée.
-
-Si vous avez besoin d'autres modifications ou d'ajouts, n'hésitez pas à me le faire savoir !
