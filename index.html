@@ -1,22 +1,87 @@
-     <!DOCTYPE html>
-     <html>
-     <head>
-         <title>Mon Site Web</title>
-     </head>
-     <body>
-         <h1>Bienvenue sur mon site web</h1>
-         <p>Ceci est une page web simple.</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Site GitHub Pages</title>
+    <style>
+        /* Styles par défaut (mode clair) */
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            transition: background-color 0.3s, color 0.3s;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
 
-         <!-- Ajoutez ici la fonction que vous souhaitez -->
+        /* Styles pour le mode sombre */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
 
-         <script>
-             // Exemple de fonction JavaScript
-             function maFonction() {
-                 alert('Bonjour ! Ceci est ma fonction qui s\'exécute.');
-             }
-         </script>
+        /* Style du bouton de bascule */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #dddddd;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
-         <button onclick="maFonction()">Cliquez ici pour exécuter la fonction</button>
-     </body>
-     </html>
-     
+        /* Changement de couleur du bouton en mode sombre */
+        body.dark-mode .theme-toggle {
+            background-color: #333333;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle">Passer en mode sombre</button>
+
+    <h1>Bienvenue sur mon site GitHub Pages</h1>
+    <p>Ceci est un exemple de site avec un bouton de bascule entre le mode clair et le mode sombre.</p>
+
+    <script>
+        // Récupère les éléments
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Fonction pour mettre à jour le texte du bouton
+        function updateButtonText() {
+            if (body.classList.contains('dark-mode')) {
+                toggleButton.textContent = 'Passer en mode clair';
+            } else {
+                toggleButton.textContent = 'Passer en mode sombre';
+            }
+        }
+
+        // Vérifie la préférence de thème enregistrée dans le localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        // Met à jour le texte du bouton au chargement
+        updateButtonText();
+
+        // Ajoute un écouteur d'événement au bouton
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            // Enregistre la préférence de l'utilisateur
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+
+            // Met à jour le texte du bouton
+            updateButtonText();
+        });
+    </script>
+</body>
+</html>
