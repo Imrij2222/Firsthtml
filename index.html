@@ -6,99 +6,33 @@
     <title>Emploi du Temps Groupe 1</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 20px;
+        /* Ajoutez ici vos styles existants ou nouveaux */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
         }
-        h1 {
-            text-align: center;
-            font-size: 2.5em;
+
+        table.dark-mode {
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
         th, td {
-            padding: 40px;
-            text-align: center;
             border: 1px solid #ddd;
-            width: 20%;
-            height: 100px;
-            font-size: 1.5em;
+            padding: 8px;
+            text-align: center;
         }
+
         th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        tr:hover {
-            background-color: #ddd;
-        }
-        .dark-mode {
-            background-color: #333;
-            color: #f4f4f4;
-        }
-        .dark-mode th {
-            background-color: #555;
-        }
-        .dark-mode tr:nth-child(even) {
-            background-color: #444;
-        }
-        .toggle-button {
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 1.2em;
-        }
-        .note {
-            font-size: 1.2em;
-            display: inline-block;
-            margin-top: 5px;
-        }
-        .note-red {
-            color: red;
-        }
-        .note-green {
-            color: green;
-        }
-        .note-blue {
-            color: blue;
-        }
-        .note-yellow {
-            color: orange;
-        }
-        #task-table {
-            margin-top: 40px;
-        }
-        #task-table th, #task-table td {
-            padding: 10px;
-            font-size: 1.2em;
-        }
-        #task-input {
-            width: 80%;
-            padding: 10px;
-            font-size: 1.2em;
-        }
-        #add-task-button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+
+        /* Supprimer ou adapter les styles liés aux notes si nécessaire */
     </style>
 </head>
 <body>
@@ -119,38 +53,38 @@
         <tbody>
             <tr>
                 <td>Dimanche</td>
-                <td onclick="editCell(this)">Technologie des composants <span class="note"></span></td>
-                <td onclick="editCell(this)">Microprocesseur <span class="note"></span></td>
-                <td onclick="editCell(this)">Td réseau <span class="note"></span></td>
-                <td onclick="editCell(this)">Td microprocesseur <span class="note"></span></td>
+                <td>Technologie des composants</td>
+                <td>Microprocesseur</td>
+                <td>Td réseau</td>
+                <td>Td microprocesseur</td>
             </tr>
             <tr>
                 <td>Lundi</td>
-                <td onclick="editCell(this)">Tp fonction <span class="note"></span></td>
-                <td onclick="editCell(this)">Tp avant projet <span class="note"></span></td>
-                <td onclick="editCell(this)">Fonction <span class="note"></span></td>
-                <td onclick="editCell(this)">Avant projet <span class="note"></span></td>
+                <td>Tp fonction</td>
+                <td>Tp avant projet</td>
+                <td>Fonction</td>
+                <td>Avant projet</td>
             </tr>
             <tr>
                 <td>Mardi</td>
-                <td onclick="editCell(this)">Microprocesseur <span class="note"></span></td>
-                <td onclick="editCell(this)">Réseau <span class="note"></span></td>
-                <td onclick="editCell(this)">Physique des sc. <span class="note"></span></td>
-                <td onclick="editCell(this)"></td>
+                <td>Microprocesseur</td>
+                <td>Réseau</td>
+                <td>Physique des sc.</td>
+                <td></td>
             </tr>
             <tr>
                 <td>Mercredi</td>
-                <td onclick="editCell(this)">Td fonction <span class="note"></span></td>
-                <td onclick="editCell(this)">Td signal <span class="note"></span></td>
-                <td onclick="editCell(this)">Traitement de signal <span class="note"></span></td>
-                <td onclick="editCell(this)">Antenne et propagation d'onde <span class="note"></span></td>
+                <td>Td fonction</td>
+                <td>Td signal</td>
+                <td>Traitement de signal</td>
+                <td>Antenne et propagation d'onde</td>
             </tr>
             <tr>
                 <td>Jeudi</td>
-                <td onclick="editCell(this)">Tp microprocesseur <span class="note"></span></td>
-                <td onclick="editCell(this)">Tp réseau/TS <span class="note"></span></td>
-                <td onclick="editCell(this)"></td>
-                <td onclick="editCell(this)"></td>
+                <td>Tp microprocesseur</td>
+                <td>Tp réseau/TS</td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
     </table>
@@ -167,7 +101,7 @@
             </tr>
         </thead>
         <tbody id="task-list">
-            <!-- Les tâches seront ajoutées ici dynamiquement -->
+            
         </tbody>
     </table>
 
@@ -178,39 +112,6 @@
             const table = document.getElementById('schedule');
             body.classList.toggle('dark-mode');
             table.classList.toggle('dark-mode');
-        }
-
-        // Fonction pour éditer une cellule
-        function editCell(cell) {
-            const currentText = cell.innerText.split('\n')[0];
-            const note = prompt("Ajouter une note ou un lien pour " + currentText + ":", cell.querySelector('.note').innerText);
-            
-            if (note !== null) {
-                const color = prompt("Choisissez une couleur pour la note (red, green, blue, yellow):", "red");
-                let noteClass = '';
-
-                switch (color.toLowerCase()) {
-                    case 'red':
-                        noteClass = 'note-red';
-                        break;
-                    case 'green':
-                        noteClass = 'note-green';
-                        break;
-                    case 'blue':
-                        noteClass = 'note-blue';
-                        break;
-                    case 'yellow':
-                        noteClass = 'note-yellow';
-                        break;
-                    default:
-                        noteClass = 'note-red';
-                }
-
-                const noteSpan = document.createElement('span');
-                noteSpan.className = `note ${noteClass}`;
-                noteSpan.innerText = note;
-                cell.appendChild(noteSpan);
-            }
         }
 
         // Fonction pour ajouter une tâche
@@ -280,4 +181,4 @@
         window.onload = loadTasks;
     </script>
 </body>
-                                </html>
+</html>
