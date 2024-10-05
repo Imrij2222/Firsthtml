@@ -67,12 +67,12 @@
             padding: 10px;
             font-size: 1.2em;
         }
-        #task-input, #article-input {
+        #task-input, #article-input, #photo-input {
             width: 80%;
             padding: 10px;
             font-size: 1.2em;
         }
-        #add-task-button, #add-article-button {
+        #add-task-button, #add-article-button, #add-photo-button {
             padding: 10px 20px;
             font-size: 1.2em;
             background-color: #4CAF50;
@@ -247,6 +247,7 @@
     <div class="group-select">
         <label for="group-select">Choisir un groupe :</label>
         <select id="group-select" onchange="filterPhotosByGroup()">
+            <option value="Tous">Tous</option>
             <!-- Les groupes seront ajoutés ici dynamiquement -->
         </select>
     </div>
@@ -425,6 +426,7 @@
                     deleteButton.innerText = '×';
                     deleteButton.onclick = function() {
                         photoGallery.removeChild(photoItem);
+                        savePhotos();
                     };
 
                     photoItem.appendChild(img);
@@ -433,6 +435,49 @@
                 };
                 reader.readAsDataURL(file);
             }
+
+            photoInput.value = ''; // Réinitialiser l'input
+        }
+
+        // Fonction pour sauvegarder les photos dans le stockage local
+        function savePhotos() {
+            const photos = [];
+            document.querySelectorAll('.photo-item').forEach(item => {
+                photos.push({
+                    src: item.querySelector('img').src,
+                    group: item.dataset.group
+                });
+            });
+            localStorage.setItem('photos', JSON.stringify(photos));
+        }
+
+        // Fonction pour charger les photos depuis le stockage local
+        function loadPhotos() {
+            const photos = JSON.parse(localStorage.getItem('photos') || '[]');
+            const photoGallery = document.getElementById('photo-gallery');
+            photos.forEach(photo => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.dataset.group = photo.group;
+
+                const img = document.createElement('img');
+                img.src = photo.src;
+                img.alt = "Photo";
+                img.onclick = function() {
+                    openModal(photo.src);
+                };
+
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = '×';
+                deleteButton.onclick = function() {
+                    photoGallery.removeChild(photoItem);
+                    savePhotos();
+                };
+
+                photoItem.appendChild(img);
+                photoItem.appendChild(deleteButton);
+                photoGallery.appendChild(photoItem);
+            });
         }
 
         // Fonction pour ouvrir la modale
@@ -462,13 +507,18 @@
             });
         }
 
-        // Fonction pour créer des groupes à partir des cours
+        // Fonction pour créer des groupes à partir des cours (exclure la première colonne des jours)
         function createGroupsFromSchedule() {
             const courses = new Set();
-            const scheduleCells = document.querySelectorAll('#schedule td');
-            scheduleCells.forEach(cell => {
-                if (cell.innerText.trim() !== "") {
-                    courses.add(cell.innerText.trim());
+            const scheduleRows = document.querySelectorAll('#schedule tbody tr');
+            scheduleRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                // Commencer à partir du deuxième td pour exclure le jour
+                for (let i = 1; i < cells.length; i++) {
+                    const course = cells[i].innerText.trim();
+                    if (course !== "") {
+                        courses.add(course);
+                    }
                 }
             });
 
@@ -482,11 +532,13 @@
             });
         }
 
-        // Charger les tâches, les articles et créer les groupes au démarrage
+        // Charger les tâches, les articles, les photos et créer les groupes au démarrage
         window.onload = function() {
             loadTasks();
             loadArticles();
             createGroupsFromSchedule();
+            loadPhotos();
+            filterPhotosByGroup(); // Appliquer le filtrage initial
         };
     </script>
 </body>
