@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emploi du Temps Groupe 1</title>
+    <title>Emploi du Temps et Galerie de Photos</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
@@ -13,9 +13,8 @@
             margin: 0;
             padding: 20px;
         }
-        h1 {
+        h1, h2 {
             text-align: center;
-            font-size: 2.5em;
         }
         table {
             width: 100%;
@@ -24,12 +23,10 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         th, td {
-            padding: 40px;
+            padding: 20px;
             text-align: center;
             border: 1px solid #ddd;
-            width: 20%;
-            height: 100px;
-            font-size: 1.5em;
+            font-size: 1em;
         }
         th {
             background-color: #4CAF50;
@@ -61,32 +58,111 @@
             border-radius: 5px;
             font-size: 1.2em;
         }
-        #task-table {
-            margin-top: 40px;
+        #task-table, #article-table, #photo-gallery {
+            margin-top: 20px;
         }
-        #task-table th, #task-table td {
+        #task-table th, #task-table td, #article-table th, #article-table td {
             padding: 10px;
-            font-size: 1.2em;
+            font-size: 1em;
         }
-        #task-input {
+        #task-input, #article-input, #photo-input {
             width: 80%;
             padding: 10px;
-            font-size: 1.2em;
+            font-size: 1em;
         }
-        #add-task-button {
+        #add-task-button, #add-article-button, #add-photo-button {
             padding: 10px 20px;
-            font-size: 1.2em;
+            font-size: 1em;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
             border-radius: 5px;
         }
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .content-section {
+            width: 30%;
+        }
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .photo-item {
+            position: relative;
+            display: inline-block;
+        }
+        .photo-item img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .photo-item button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+            margin: 15% auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .group-select {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .drive-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .drive-link a {
+            color: #4CAF50;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+        .drive-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Emploi du Temps Groupe 1</h1>
+    <h1>Emploi du Temps et Galerie de Photos</h1>
     <button class="toggle-button" onclick="toggleDarkMode()">Activer/Désactiver le Mode Sombre</button>
     
     <table id="schedule">
@@ -138,21 +214,70 @@
         </tbody>
     </table>
 
-    <h2>Tâches de la Semaine</h2>
-    <input type="text" id="task-input" placeholder="Ajouter une nouvelle tâche">
-    <button id="add-task-button" onclick="addTask()">Ajouter Tâche</button>
+    <div class="drive-link">
+        <a href="https://drive.google.com/drive/folders/1-73eS9GmtmqrYeUe30-O02FZITEHGGn-" target="_blank">Lien vers le Drive</a>
+    </div>
+
+    <div class="content-container">
+        <div class="content-section">
+            <h2>Tâches de la Semaine</h2>
+            <input type="text" id="task-input" placeholder="Ajouter une nouvelle tâche">
+            <button id="add-task-button" onclick="addTask()">Ajouter Tâche</button>
+            
+            <table id="task-table">
+                <thead>
+                    <tr>
+                        <th>Tâche</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="task-list">
+                    <!-- Les tâches seront ajoutées ici dynamiquement -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h2>Articles</h2>
+            <textarea id="article-input" placeholder="Écrire un nouvel article" rows="4" style="width: 80%;"></textarea>
+            <button id="add-article-button" onclick="addArticle()">Ajouter Article</button>
+            
+            <table id="article-table">
+                <thead>
+                    <tr>
+                        <th>Article</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="article-list">
+                    <!-- Les articles seront ajoutés ici dynamiquement -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h2>Galerie de Photos</h2>
+            <input type="file" id="photo-input" accept="image/*" multiple>
+            <button id="add-photo-button" onclick="addPhotos()">Ajouter Photos</button>
+            
+            <div class="group-select">
+                <label for="group-select">Choisir un groupe :</label>
+                <select id="group-select" onchange="filterPhotosByGroup()">
+                    <option value="Tous">Tous</option>
+                    <!-- Les groupes seront ajoutés ici dynamiquement -->
+                </select>
+            </div>
     
-    <table id="task-table">
-        <thead>
-            <tr>
-                <th>Tâche</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="task-list">
-            <!-- Les tâches seront ajoutées ici dynamiquement -->
-        </tbody>
-    </table>
+            <div id="photo-gallery" class="photo-gallery">
+                <!-- Les photos seront ajoutées ici dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modal-img">
+    </div>
 
     <script>
         // Fonctionnalité de mode sombre
@@ -226,8 +351,209 @@
             });
         }
 
-        // Charger les tâches au démarrage
-        window.onload = loadTasks;
+        // Fonction pour ajouter un article
+        function addArticle() {
+            const articleInput = document.getElementById('article-input');
+            const articleText = articleInput.value.trim();
+            if (articleText === '') return;
+
+            const articleList = document.getElementById('article-list');
+            const articleRow = document.createElement('tr');
+
+            const articleCell = document.createElement('td');
+            articleCell.innerText = articleText;
+            articleRow.appendChild(articleCell);
+
+            const actionCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Supprimer';
+            deleteButton.onclick = function() {
+                articleList.removeChild(articleRow);
+                saveArticles();
+            };
+            actionCell.appendChild(deleteButton);
+            articleRow.appendChild(actionCell);
+
+            articleList.appendChild(articleRow);
+            articleInput.value = '';
+
+            saveArticles();
+        }
+
+        // Fonction pour sauvegarder les articles dans le stockage local
+        function saveArticles() {
+            const articles = [];
+            document.querySelectorAll('#article-list tr').forEach(row => {
+                articles.push(row.firstChild.innerText);
+            });
+            localStorage.setItem('articles', JSON.stringify(articles));
+        }
+
+        // Fonction pour charger les articles depuis le stockage local
+        function loadArticles() {
+            const articles = JSON.parse(localStorage.getItem('articles') || '[]');
+            articles.forEach(articleText => {
+                const articleList = document.getElementById('article-list');
+                const articleRow = document.createElement('tr');
+
+                const articleCell = document.createElement('td');
+                articleCell.innerText = articleText;
+                articleRow.appendChild(articleCell);
+
+                const actionCell = document.createElement('td');
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Supprimer';
+                deleteButton.onclick = function() {
+                    articleList.removeChild(articleRow);
+                    saveArticles();
+                };
+                actionCell.appendChild(deleteButton);
+                articleRow.appendChild(actionCell);
+
+                articleList.appendChild(articleRow);
+            });
+        }
+
+        // Fonction pour ajouter des photos
+        function addPhotos() {
+            const photoInput = document.getElementById('photo-input');
+            const photoGallery = document.getElementById('photo-gallery');
+            const groupSelect = document.getElementById('group-select').value;
+            const files = photoInput.files;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const photoItem = document.createElement('div');
+                    photoItem.className = 'photo-item';
+                    photoItem.dataset.group = groupSelect;
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = "Photo";
+                    img.onclick = function() {
+                        openModal(e.target.result);
+                    };
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.innerText = '×';
+                    deleteButton.onclick = function() {
+                        photoGallery.removeChild(photoItem);
+                        savePhotos();
+                    };
+
+                    photoItem.appendChild(img);
+                    photoItem.appendChild(deleteButton);
+                    photoGallery.appendChild(photoItem);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            photoInput.value = ''; // Réinitialiser l'input
+        }
+
+        // Fonction pour sauvegarder les photos dans le stockage local
+        function savePhotos() {
+            const photos = [];
+            document.querySelectorAll('.photo-item').forEach(item => {
+                photos.push({
+                    src: item.querySelector('img').src,
+                    group: item.dataset.group
+                });
+            });
+            localStorage.setItem('photos', JSON.stringify(photos));
+        }
+
+        // Fonction pour charger les photos depuis le stockage local
+        function loadPhotos() {
+            const photos = JSON.parse(localStorage.getItem('photos') || '[]');
+            const photoGallery = document.getElementById('photo-gallery');
+            photos.forEach(photo => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.dataset.group = photo.group;
+
+                const img = document.createElement('img');
+                img.src = photo.src;
+                img.alt = "Photo";
+                img.onclick = function() {
+                    openModal(photo.src);
+                };
+
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = '×';
+                deleteButton.onclick = function() {
+                    photoGallery.removeChild(photoItem);
+                    savePhotos();
+                };
+
+                photoItem.appendChild(img);
+                photoItem.appendChild(deleteButton);
+                photoGallery.appendChild(photoItem);
+            });
+        }
+
+        // Fonction pour ouvrir la modale
+        function openModal(src) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-img');
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+
+        // Fonction pour fermer la modale
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = "none";
+        }
+
+        // Fonction pour filtrer les photos par groupe
+        function filterPhotosByGroup() {
+            const selectedGroup = document.getElementById('group-select').value;
+            const photoItems = document.querySelectorAll('.photo-item');
+            photoItems.forEach(item => {
+                if (item.dataset.group === selectedGroup || selectedGroup === "Tous") {
+                    item.style.display = "inline-block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        // Fonction pour créer des groupes à partir des cours (exclure la première colonne des jours)
+        function createGroupsFromSchedule() {
+            const courses = new Set();
+            const scheduleRows = document.querySelectorAll('#schedule tbody tr');
+            scheduleRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                // Commencer à partir du deuxième td pour exclure le jour
+                for (let i = 1; i < cells.length; i++) {
+                    const course = cells[i].innerText.trim();
+                    if (course !== "") {
+                        courses.add(course);
+                    }
+                }
+            });
+
+            const groupSelect = document.getElementById('group-select');
+            groupSelect.innerHTML = '<option value="Tous">Tous</option>';
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course;
+                option.innerText = course;
+                groupSelect.appendChild(option);
+            });
+        }
+
+        // Charger les tâches, les articles, les photos et créer les groupes au démarrage
+        window.onload = function() {
+            loadTasks();
+            loadArticles();
+            createGroupsFromSchedule();
+            loadPhotos();
+            filterPhotosByGroup(); // Appliquer le filtrage initial
+        };
     </script>
 </body>
 </html>
